@@ -16,11 +16,11 @@ class Math(commands.Cog):
         '''
     #LOGGER.debug('Add request recieved: %s', args)
         if len(args) < 2:
-            await ctx.send('You must provide at least 2 numbers to add')
+            await ctx.reply('You must provide at least 2 numbers to add')
             return
     
         total = 0.0
         for arg in args:
             total += float(arg)
 
-        await ctx.send(total)
+        await ctx.reply(total)
