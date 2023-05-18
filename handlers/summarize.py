@@ -1,9 +1,13 @@
+"""
+Handler for using Summarize NLP
+"""
+from string import punctuation
+from heapq import nlargest
 from newspaper import Article
 import spacy
 from spacy.lang.en.stop_words import STOP_WORDS
-from string import punctuation
-from heapq import nlargest
-from datetime import datetime, timedelta
+
+#from datetime import datetime, timedelta
 
 
 def summarize(text, per=0.1):
@@ -13,18 +17,20 @@ def summarize(text, per=0.1):
     """
     nlp = spacy.load('en_core_web_sm')
     doc = nlp(text)
-    tokens = [token.text for token in doc]
+    #tokens = [token.text for token in doc]
     word_frequencies = {}
     for word in doc:
         if word.text.lower() not in list(STOP_WORDS):
             if word.text.lower() not in punctuation:
-                if word.text not in word_frequencies.keys():
+                #if word.text not in word_frequencies.keys():
+                if word.text not in word_frequencies:
                     word_frequencies[word.text] = 1
                 else:
                     word_frequencies[word.text] += 1
 
     max_frequency = max(word_frequencies.values())
-    for word in word_frequencies.keys():
+    #for word in word_frequencies.keys():
+    for word in word_frequencies:
         word_frequencies[word] = word_frequencies[word] / max_frequency
 
     sentence_tokens = [sent for sent in doc.sents]
@@ -41,7 +47,7 @@ def summarize(text, per=0.1):
     summary = nlargest(select_length, sentence_scores, key=sentence_scores.get)
     final_summary = [word.text for word in summary]
     summary = ' '.join(final_summary)
-    
+
     return summary
 
 def summarize_url(url, per=0.1):
