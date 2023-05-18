@@ -12,5 +12,5 @@ def generate_qr_code(data):
     img = qrcode.make(data)
     type(img)
     img.save('qr.png')
-    
+
     return os.path.abspath('qr.png')
