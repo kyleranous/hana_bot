@@ -10,6 +10,7 @@ from discord.ext import commands
 import dotenv
 from modules.github_commands import Github
 from modules.math_commands import Math
+from modules.summarize_commands import Summarize
 
 
 dotenv.load_dotenv()
@@ -39,6 +40,7 @@ async def on_ready():
     print(f'We have logged in as {bot.user}')
     await bot.add_cog(Github(bot))
     await bot.add_cog(Math(bot))
+    await bot.add_cog(Summarize(bot))
 
 
 @bot.command()
