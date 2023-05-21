@@ -1,15 +1,3 @@
-"""
-MLA for summarizing text
-"""
-
-from discord.ext import commands
-from handlers import summarize
-
-
-class Summarize(commands.Cog):
-    """
-    Commands for summarizing text
-    """
 
     @commands.command()
     async def summarize_url(self, ctx, url: str, per: float = 0.1):

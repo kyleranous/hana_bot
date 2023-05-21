@@ -4,22 +4,25 @@ HANA Discord Chat Bot
 
 import os
 import logging
-import urllib.parse
+
 import discord
 from discord.ext import commands
 import dotenv
 from modules.github_commands import Github
 from modules.math_commands import Math
 from modules.summarize_commands import Summarize
+from modules.util_commands import Utils
 
 
 dotenv.load_dotenv()
 
-LOGGER = logging.getLogger(__name__)
+
+LOGGER = logging.getLogger('discord')
 # Setup LOGGER to print to the terminal
-LOGGER.addHandler(logging.StreamHandler())
+#LOGGER.addHandler(logging.StreamHandler())
 
 LOGGER.setLevel(logging.DEBUG)
+logging.getLogger('discord.http').setLevel(logging.INFO)
 
 
 DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
@@ -37,20 +40,11 @@ async def on_ready():
     """ 
     Setup the bot when it is ready
     """
-    print(f'We have logged in as {bot.user}')
+    LOGGER.info('Logged in as %s', bot.user)
     await bot.add_cog(Github(bot))
     await bot.add_cog(Math(bot))
     await bot.add_cog(Summarize(bot))
+    await bot.add_cog(Utils(bot))
 
-
-@bot.command()
-async def url_encode(ctx, encode: str):
-    """
-    Recieves a string and returns the URL Encoded version
-    EX: /url_encode "This is a string to encode"
-    """
-    LOGGER.debug('URL Encode request recieved: %s', encode)
-    encoded_string = urllib.parse.quote(encode)
-    await ctx.send(encoded_string)
 
 bot.run(DISCORD_TOKEN)
