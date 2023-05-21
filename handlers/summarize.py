@@ -37,8 +37,8 @@ def summarize(text, per=0.1):
     sentence_scores = {}
     for sent in sentence_tokens:
         for word in sent:
-            if word.text.lower() in word_frequencies.keys():
-                if sent not in sentence_scores.keys():
+            if word.text.lower() in word_frequencies:
+                if sent not in sentence_scores:
                     sentence_scores[sent] = word_frequencies[word.text.lower()]
                 else:
                     sentence_scores[sent] += word_frequencies[word.text.lower()]
