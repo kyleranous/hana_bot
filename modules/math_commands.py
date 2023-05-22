@@ -226,4 +226,3 @@ class Math(commands.Cog):
             EX /atanh 1
         '''
         await ctx.reply(math.atanh(float(num)))
-

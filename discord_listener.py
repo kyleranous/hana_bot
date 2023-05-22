@@ -12,6 +12,7 @@ from modules.github_commands import Github
 from modules.math_commands import Math
 from modules.summarize_commands import Summarize
 from modules.util_commands import Utils
+from modules.hash_commands import Hash
 
 
 dotenv.load_dotenv()
@@ -45,6 +46,7 @@ async def on_ready():
     await bot.add_cog(Math(bot))
     await bot.add_cog(Summarize(bot))
     await bot.add_cog(Utils(bot))
+    await bot.add_cog(Hash(bot))
 
 
 bot.run(DISCORD_TOKEN)
